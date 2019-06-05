@@ -536,3 +536,6 @@ ASALocalRun/
 healthchecksdb
 
 # End of https://www.gitignore.io/api/c++,clion,macos,linux,windows,visualstudio,visualstudiocode
+
+# Project
+build
