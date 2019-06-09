@@ -1,25 +1,14 @@
-#include <Ogre.h>
-#include <OgreApplicationContext.h>
-#include <iostream>
+//
+// Created by ivantha on 09/06/19.
+//
 
-class MyAssignment : public OgreBites::ApplicationContext, public OgreBites::InputListener
-{
-private:
-    Ogre::SceneManager *scnMgr;
+#include "PartA.h"
 
-public:
-    MyAssignment();
-
-    void setup();
-
-    bool keyPressed(const OgreBites::KeyboardEvent &evt);
-};
-
-MyAssignment::MyAssignment() : OgreBites::ApplicationContext("OgreTutorialApp")
+PartA::PartA() : OgreBites::ApplicationContext("OgreTutorialApp")
 {
 }
 
-bool MyAssignment::keyPressed(const OgreBites::KeyboardEvent &evt)
+bool PartA::keyPressed(const OgreBites::KeyboardEvent &evt)
 {
     if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
     {
@@ -72,7 +61,7 @@ bool MyAssignment::keyPressed(const OgreBites::KeyboardEvent &evt)
     return true;
 }
 
-void MyAssignment::setup(void)
+void PartA::setup(void)
 {
     OgreBites::ApplicationContext::setup();
 
@@ -125,13 +114,4 @@ void MyAssignment::setup(void)
     Ogre::SceneNode *nodeD = scnMgr->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(-70, 0, 0));
     nodeD->rotate(Ogre::Vector3(0, 0, 1), Ogre::Radian(90 / 180.0 * atan(1) * 4)); // atan(1) * 4 is PI
     nodeD->attachObject(entD);
-}
-
-int main(int argc, char *argv[])
-{
-    MyAssignment app;
-    app.initApp();
-    app.getRoot()->startRendering();
-    app.closeApp();
-    return 0;
 }

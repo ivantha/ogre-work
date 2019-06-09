@@ -1,69 +1,16 @@
-#define TERRAIN_PAGE_MIN_X 0
-#define TERRAIN_PAGE_MIN_Y 0
-#define TERRAIN_PAGE_MAX_X 0
-#define TERRAIN_PAGE_MAX_Y 0
+//
+// Created by ivantha on 09/06/19.
+//
 
-#include <Ogre.h>
-#include <OgreApplicationContext.h>
-#include <iostream>
-#include <Terrain/OgreTerrain.h>
-#include <Terrain/OgreTerrainGroup.h>
-#include <Terrain/OgreTerrainMaterialGeneratorA.h>
-#include <OgreTrays.h>
+#include "PartB.h"
 
-#define TERRAIN_FILE_PREFIX String("testTerrain")
-#define TERRAIN_FILE_SUFFIX String("dat")
-#define TERRAIN_WORLD_SIZE 12000.0f
-#define TERRAIN_SIZE 513
-
-using namespace Ogre;
-using namespace OgreBites;
-
-class MyAssignment : public ApplicationContext, public InputListener, public TrayListener
-{
-private:
-    Ogre::SceneManager *scnMgr;
-
-    Camera *camera;
-    SceneNode *cameraNode;
-
-    TerrainGlobalOptions *mTerrainGlobals;
-    TerrainGroup *mTerrainGroup;
-    Vector3 mTerrainPos;
-    bool mTerrainsImported;
-
-    TrayManager* mTrayMgr;
-
-protected:
-    void defineTerrain(long x, long y, bool flat = false);
-
-    void getTerrainImage(bool flipX, bool flipY, Image &img);
-
-    void initBlendMaps(Terrain *terrain);
-
-    void configureTerrainDefaults(Light *l);
-
-public:
-    MyAssignment();
-
-    void setup();
-
-    bool keyPressed(const KeyboardEvent &evt);
-
-    void setupView();
-
-    void setupControls();
-
-    void setupContent();
-};
-
-MyAssignment::MyAssignment() : ApplicationContext("OgreTutorialApp"),
-                               mTerrainPos(1000, 0, 5000),
-                               mTerrainsImported(false)
+PartB::PartB() : ApplicationContext("OgreTutorialApp"),
+                 mTerrainPos(1000, 0, 5000),
+                 mTerrainsImported(false)
 {
 }
 
-bool MyAssignment::keyPressed(const KeyboardEvent &evt)
+bool PartB::keyPressed(const KeyboardEvent &evt)
 {
     if (evt.keysym.sym == SDLK_ESCAPE)
     {
@@ -73,22 +20,22 @@ bool MyAssignment::keyPressed(const KeyboardEvent &evt)
         Ogre::SceneNode *cameraNode = scnMgr->getSceneNode("cameraNode", true);
         Ogre::Quaternion quat = cameraNode->getOrientation();
         cameraNode->rotate(Ogre::Vector3(1, 0, 0), Ogre::Radian(0.1));
-    }else if (evt.keysym.sym == 103) // G
+    } else if (evt.keysym.sym == 103) // G
     {
         Ogre::SceneNode *cameraNode = scnMgr->getSceneNode("cameraNode", true);
         Ogre::Quaternion quat = cameraNode->getOrientation();
         cameraNode->rotate(Ogre::Vector3(0, 1, 0), Ogre::Radian(0.1));
-    }else if (evt.keysym.sym == 104) // H
+    } else if (evt.keysym.sym == 104) // H
     {
         Ogre::SceneNode *cameraNode = scnMgr->getSceneNode("cameraNode", true);
         Ogre::Quaternion quat = cameraNode->getOrientation();
         cameraNode->rotate(Ogre::Vector3(1, 0, 0), Ogre::Radian(-0.1));
-    }else if (evt.keysym.sym == 106) // J
+    } else if (evt.keysym.sym == 106) // J
     {
         Ogre::SceneNode *cameraNode = scnMgr->getSceneNode("cameraNode", true);
         Ogre::Quaternion quat = cameraNode->getOrientation();
         cameraNode->rotate(Ogre::Vector3(0, 1, 0), Ogre::Radian(-0.1));
-    }else
+    } else
     {
         // not supposed to happen
         std::cout << evt.keysym.sym << std::endl;
@@ -96,7 +43,7 @@ bool MyAssignment::keyPressed(const KeyboardEvent &evt)
     return true;
 }
 
-void MyAssignment::setup(void)
+void PartB::setup(void)
 {
     ApplicationContext::setup();
 
@@ -105,7 +52,7 @@ void MyAssignment::setup(void)
     setupContent();
 }
 
-void MyAssignment::defineTerrain(long x, long y, bool flat)
+void PartB::defineTerrain(long x, long y, bool flat)
 {
     // if a file is available, use it
     // if not, generate file from import
@@ -134,7 +81,7 @@ void MyAssignment::defineTerrain(long x, long y, bool flat)
     //! [define]
 }
 
-void MyAssignment::getTerrainImage(bool flipX, bool flipY, Image &img)
+void PartB::getTerrainImage(bool flipX, bool flipY, Image &img)
 {
     //! [heightmap]
     img.load("terrain.png", mTerrainGroup->getResourceGroup());
@@ -145,7 +92,7 @@ void MyAssignment::getTerrainImage(bool flipX, bool flipY, Image &img)
     //! [heightmap]
 }
 
-void MyAssignment::initBlendMaps(Terrain *terrain)
+void PartB::initBlendMaps(Terrain *terrain)
 {
     //! [blendmap]
     TerrainLayerBlendMap *blendMap0 = terrain->getLayerBlendMap(1);
@@ -186,7 +133,7 @@ void MyAssignment::initBlendMaps(Terrain *terrain)
     */
 }
 
-void MyAssignment::configureTerrainDefaults(Light *l)
+void PartB::configureTerrainDefaults(Light *l)
 {
     //! [configure_lod]
     mTerrainGlobals->setMaxPixelError(8);
@@ -237,7 +184,8 @@ void MyAssignment::configureTerrainDefaults(Light *l)
     //! [textures]
 }
 
-void MyAssignment::setupView(){
+void PartB::setupView()
+{
     // get a pointer to the already created root
     Root *root = getRoot();
     scnMgr = root->createSceneManager();
@@ -274,12 +222,14 @@ void MyAssignment::setupView(){
     getRenderWindow()->getViewport(0)->setMaterialScheme(RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
 }
 
-void MyAssignment::setupControls(){
+void PartB::setupControls()
+{
     // register for input events
     addInputListener(this);
 }
 
-void MyAssignment::setupContent() {
+void PartB::setupContent()
+{
     //! [global_opts]
     mTerrainGlobals = new Ogre::TerrainGlobalOptions();
     //! [global_opts]
@@ -332,9 +282,9 @@ void MyAssignment::setupContent() {
     if (mTerrainsImported)
     {
         TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
-        while(ti.hasMoreElements())
+        while (ti.hasMoreElements())
         {
-            Terrain* t = ti.getNext()->instance;
+            Terrain *t = ti.getNext()->instance;
             initBlendMaps(t);
         }
     }
@@ -343,13 +293,4 @@ void MyAssignment::setupContent() {
     //! [init_blend]
 
     scnMgr->setSkyDome(true, "Examples/CloudySky", 5, 8);
-}
-
-int main(int argc, char *argv[])
-{
-    MyAssignment app;
-    app.initApp();
-    app.getRoot()->startRendering();
-    app.closeApp();
-    return 0;
 }
