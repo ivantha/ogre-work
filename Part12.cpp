@@ -38,12 +38,12 @@ bool MyAssignment::keyPressed(const OgreBites::KeyboardEvent &evt)
     {
         Ogre::SceneNode *nodeC = scnMgr->getSceneNode("ogrC", true);
         Ogre::Quaternion quat = nodeC->getOrientation();
-        nodeC->rotate(Ogre::Vector3(0, 0, 1), Ogre::Radian(quat.getYaw().valueRadians() + 0.1));
+        nodeC->rotate(Ogre::Vector3(0, 0, 1), Ogre::Radian(0.1));
     } else if (evt.keysym.sym == 101) // E
     {
         Ogre::SceneNode *nodeC = scnMgr->getSceneNode("ogrC", true);
         Ogre::Quaternion quat = nodeC->getOrientation();
-        nodeC->rotate(Ogre::Vector3(0, 0, 1), Ogre::Radian(quat.getYaw().valueRadians() - 0.1));
+        nodeC->rotate(Ogre::Vector3(0, 0, 1), Ogre::Radian(-0.1));
     } else if (evt.keysym.sym == 1073741906) // UP
     {
         Ogre::SceneNode *nodeC = scnMgr->getSceneNode("ogrC", true);
